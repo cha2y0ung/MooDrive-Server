@@ -19,4 +19,9 @@ router.get(
     [param('userId').notEmpty()],
     courseController.getMyCourse,
 )
+router.post(
+    '/scrap/:courseId',
+    [param('courseId').notEmpty()],
+    courseController.scrapCourse,
+)
 export default router;

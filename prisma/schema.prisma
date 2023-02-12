@@ -35,8 +35,8 @@ model Drive {
 
 model Scrap {
   scrapId  Int @id @default(autoincrement())
-  userId   Int @unique
-  courseId Int @unique
+  userId   Int
+  courseId Int
 }
 
 model Photo {
