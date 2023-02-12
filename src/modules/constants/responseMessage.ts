@@ -9,6 +9,7 @@ export default {
     GET_MY_COURSE_SUCCESS: '내가 만든 코스 조회 성공',
     SCRAP_COURSE_SUCCESS: '코스 스크랩 성공',
     DELETE_SCRAP_SUCCESS: '코스 스크랩 취소',
+    GET_MY_SCRAP_SUCCESS: '내 스크랩 조회',
   
     // 서버 내 오류
     INTERNAL_SERVER_ERROR: '서버 내 오류',

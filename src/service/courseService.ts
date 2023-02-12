@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { selectFields } from 'express-validator/src/select-fields';
 import { createCourseDTO} from '../interfaces/DTO';
 import { message } from '../modules/constants';
 const prisma = new PrismaClient();
@@ -100,7 +101,7 @@ const deleteScrap = async (courseId: number, userId: number) => {
       }
     })
     if (number) {
-      const scrap = await prisma.scrap.delete({
+      const scrap = await prisma.scrap.deleteMany({
         where: {
           userId: userId,
           courseId: courseId
@@ -130,6 +131,22 @@ const deleteScrap = async (courseId: number, userId: number) => {
   }
 }
 
+const getMyScrap = async (userId: number) => {
+  try{
+    const scraps = await prisma.scrap.findMany({
+      where: {
+        userId: userId,
+      },
+      select: {
+        courseId: true,
+        }
+    })
+    return scraps;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
 
 export default {
@@ -138,4 +155,5 @@ export default {
   getMyCourse,
   scrapCourse,
   deleteScrap,
+  getMyScrap,
 };
