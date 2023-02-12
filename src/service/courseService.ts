@@ -37,7 +37,22 @@ const deleteCourse = async (courseId: number) => {
   }
 }
 
+const getMyCourse = async (userId: number) => {
+  try{
+    const course = await prisma.course.findMany({
+      where: {
+        userId: userId,
+      }
+    })
+    return course;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export default {
   createCourse,
   deleteCourse,
+  getMyCourse,
 };

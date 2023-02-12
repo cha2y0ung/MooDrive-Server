@@ -6,6 +6,7 @@ export default {
   
     CREATE_COURSE_SUCCESS: '코스 생성 성공',
     DELETE_COURSE_SUCCESS: '코스 삭제 성공',
+    GET_MY_COURSE_SUCCESS: '내가 만든 코스 조회 성공',
   
     // 서버 내 오류
     INTERNAL_SERVER_ERROR: '서버 내 오류',
