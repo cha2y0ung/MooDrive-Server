@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { createCourseDTO } from '../interfaces/DTO';
+import { createCourseDTO} from '../interfaces/DTO';
 const prisma = new PrismaClient();
 
 const createCourse = async (userId: number, createCourseDto: createCourseDTO) => {
@@ -51,8 +51,38 @@ const getMyCourse = async (userId: number) => {
   }
 }
 
+const scrapCourse = async (courseId: number, userId: number) => {
+  try{
+    const scrap = await prisma.scrap.create({
+      data: {
+        courseId: courseId,
+        userId: userId,
+      }
+    })
+    const scrapNumber = await prisma.scrap.count({
+      where: {
+        courseId: courseId,
+      }
+    })
+    const scrapUpdate = await prisma.course.update({
+      where: {
+        courseId: courseId
+      },
+      data: {
+        scrap: scrapNumber
+      }
+    })
+    return scrapUpdate && scrap
+  } catch(error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+
 export default {
   createCourse,
   deleteCourse,
   getMyCourse,
+  scrapCourse,
 };
