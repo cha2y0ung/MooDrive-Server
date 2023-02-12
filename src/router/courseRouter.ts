@@ -5,8 +5,7 @@ import { courseController } from '../controller';
 const router: Router = Router();
 
 router.post(
-    '/draw/:userId',
-    [param('userId').notEmpty()],
+    '/draw',
     courseController.makeCourse,
 )
 router.delete(
@@ -23,5 +22,10 @@ router.post(
     '/scrap/:courseId',
     [param('courseId').notEmpty()],
     courseController.scrapCourse,
+)
+router.delete(
+    'scrap/:courseId',
+    [param('courseId').notEmpty()],
+    courseController.deleteScrap,
 )
 export default router;
