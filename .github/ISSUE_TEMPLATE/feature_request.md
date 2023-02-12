@@ -7,10 +7,6 @@ assignees: ''
 
 ---
 
-## Issue
-
-- close
-
 ##Description
 
 > description
