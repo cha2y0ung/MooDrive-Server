@@ -24,8 +24,13 @@ router.post(
     courseController.scrapCourse,
 )
 router.delete(
-    'scrap/:courseId',
+    '/scrap/:courseId',
     [param('courseId').notEmpty()],
     courseController.deleteScrap,
+)
+router.get(
+    '/scrap/:userId',
+    [param('userId').notEmpty()],
+    courseController.getMyScrap,
 )
 export default router;
