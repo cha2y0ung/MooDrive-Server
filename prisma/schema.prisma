@@ -11,3 +11,36 @@ model User {
   userId   Int    @id @default(autoincrement())
   username String
 }
+
+model Course {
+  courseId      Int       @id(map: "course_pkey") @default(autoincrement())
+  userId        Int       @unique(map: "course_userId_key")
+  discription   String?
+  totalTime     DateTime? @db.Time(6)
+  startLocation String
+  endLocation   String
+  hashtag       String?
+  music         String?
+  path          Int?
+  scrap         Int?
+}
+
+model Drive {
+  driveId   Int      @id @default(autoincrement())
+  courseId  Int      @unique
+  userId    Int      @unique
+  startTime DateTime @db.Timestamp(6)
+  endTime   DateTime @db.Timestamp(6)
+}
+
+model Scrap {
+  scrapId  Int @id @default(autoincrement())
+  userId   Int @unique
+  courseId Int @unique
+}
+
+model Photo {
+  photoId  Int    @id @default(autoincrement())
+  courseId Int    @unique
+  photoUrl String
+}
