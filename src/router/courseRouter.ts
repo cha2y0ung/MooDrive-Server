@@ -14,4 +14,9 @@ router.delete(
     [param('courseId').notEmpty()],
     courseController.deleteCourse,
 )
+router.get(
+    '/draw/:userId',
+    [param('userId').notEmpty()],
+    courseController.getMyCourse,
+)
 export default router;

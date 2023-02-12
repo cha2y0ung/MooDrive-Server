@@ -3,6 +3,7 @@ import { message, statusCode } from '../modules/constants';
 import { fail, success } from '../modules/constants/util';
 import { createCourseDTO } from '../interfaces/DTO';
 import { courseService } from '../service';
+import { NetConnectOpts } from 'net';
 
 const makeCourse = async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.params;
@@ -29,7 +30,20 @@ const deleteCourse = async (req: Request, res: Response, next: NextFunction) => 
     }
 };
 
+const getMyCourse = async (req: Request, res: Response, next: NextFunction) => {
+  const { userId } = req.params;
+  try {
+    const data = await courseService.getMyCourse(+userId);
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, message.GET_MY_COURSE_SUCCESS, data))
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
     makeCourse,
     deleteCourse,
+    getMyCourse,
 }
