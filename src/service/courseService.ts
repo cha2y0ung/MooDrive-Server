@@ -23,6 +23,21 @@ const createCourse = async (userId: number, createCourseDto: createCourseDTO) =>
   }
 };
 
+const deleteCourse = async (courseId: number) => {
+  try{
+    const course = await prisma.course.delete({
+      where: {
+        courseId: courseId,
+      }
+    })
+    return course;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export default {
   createCourse,
+  deleteCourse,
 };

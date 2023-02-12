@@ -9,4 +9,9 @@ router.post(
     [param('userId').notEmpty()],
     courseController.makeCourse,
 )
+router.delete(
+    '/draw/:courseId',
+    [param('courseId').notEmpty()],
+    courseController.deleteCourse,
+)
 export default router;
