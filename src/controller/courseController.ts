@@ -17,6 +17,19 @@ const makeCourse = async (req: Request, res: Response, next: NextFunction) => {
     }
   };
 
+const deleteCourse = async (req: Request, res: Response, next: NextFunction) => {
+    const { courseId } = req.params;
+    try{
+      const data = await courseService.deleteCourse(+courseId);
+      return res
+        .status(statusCode.OK)
+        .send(success(statusCode.OK, message.DELETE_COURSE_SUCCESS, data))
+    } catch (error) {
+      next(error);
+    }
+};
+
 export default {
     makeCourse,
+    deleteCourse,
 }

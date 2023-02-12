@@ -5,6 +5,7 @@ export default {
     BAD_REQUEST: '잘못된 요청입니다.',
   
     CREATE_COURSE_SUCCESS: '코스 생성 성공',
+    DELETE_COURSE_SUCCESS: '코스 삭제 성공',
   
     // 서버 내 오류
     INTERNAL_SERVER_ERROR: '서버 내 오류',

@@ -14,7 +14,7 @@ model User {
 
 model Course {
   courseId      Int       @id(map: "course_pkey") @default(autoincrement())
-  userId        Int       @unique(map: "course_userId_key")
+  userId        Int
   discription   String?
   totalTime     DateTime? @db.Time(6)
   startLocation String
