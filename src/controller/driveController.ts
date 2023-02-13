@@ -31,7 +31,20 @@ const getMyDrive = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
+const updateDrive = async (req: Request, res: Response, next: NextFunction) => {
+  const { driveId } = req.params;
+  try {
+    const data = await driveService.updateDrive(+driveId);
+    return res
+      .status(statusCode.ACCEPTED)
+      .send(success(statusCode.OK, message.UPDATE_DRIVE_SUCCESS, data));
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
     makeDrive,
     getMyDrive,
+    updateDrive,
 }
