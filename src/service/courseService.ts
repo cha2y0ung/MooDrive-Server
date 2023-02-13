@@ -148,6 +148,20 @@ const getMyScrap = async (userId: number) => {
   }
 }
 
+const getDetailCourse = async (courseId: number) => {
+  try{
+    const course = await prisma.course.findFirst({
+      where: {
+        courseId: courseId,
+      }
+    })
+    return course;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 
 export default {
   createCourse,
@@ -156,4 +170,5 @@ export default {
   scrapCourse,
   deleteScrap,
   getMyScrap,
+  getDetailCourse,
 };
