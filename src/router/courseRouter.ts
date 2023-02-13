@@ -33,4 +33,9 @@ router.get(
     [param('userId').notEmpty()],
     courseController.getMyScrap,
 )
+router.get(
+    '/detail/:courseId',
+    [param('courseId').notEmpty()],
+    courseController.getDetailCourse,
+)
 export default router;

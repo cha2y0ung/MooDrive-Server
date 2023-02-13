@@ -82,6 +82,18 @@ const getMyScrap = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
+const getDetailCourse = async (req: Request, res: Response, next: NextFunction) => {
+  const { courseId } = req.params;
+  try {
+    const data = await courseService.getDetailCourse(+courseId);
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, message.GET_DETAIL_COURSE_SUCCESS, data))
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
     makeCourse,
     deleteCourse,
@@ -89,4 +101,5 @@ export default {
     scrapCourse,
     deleteScrap,
     getMyScrap,
+    getDetailCourse,
 }
