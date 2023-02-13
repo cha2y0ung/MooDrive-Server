@@ -13,6 +13,7 @@ export default {
     GET_DETAIL_COURSE_SUCCESS: '코스 상세 조회 성공',
     CREATE_DRIVE_SUCCESS: '주행 기록 생성 성공',
     GET_MY_DRIVE_SUCCESS: '내 주행기록 조회 성공',
+    UPDATE_DRIVE_SUCCESS: '주행 기록 업데이트 성공',
   
     // 서버 내 오류
     INTERNAL_SERVER_ERROR: '서버 내 오류',

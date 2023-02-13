@@ -27,10 +27,11 @@ model Course {
 
 model Drive {
   driveId   Int      @id @default(autoincrement())
-  courseId  Int      @unique
-  userId    Int      @unique
+  courseId  Int
+  userId    Int
   startTime DateTime @default(dbgenerated("CURRENT_TIME")) @db.Time(6)
   endTime   DateTime @updatedAt @db.Time(6)
+  date      DateTime @updatedAt @db.Date
 }
 
 model Scrap {

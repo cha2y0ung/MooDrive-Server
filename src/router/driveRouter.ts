@@ -14,5 +14,10 @@ router.get(
     [param('userId').notEmpty()],
     driveController.getMyDrive,
 )
+router.patch(
+    '/:driveId',
+    [param('driveId').notEmpty()],
+    driveController.updateDrive,
+)
 
 export default router;
