@@ -38,4 +38,5 @@ router.get(
     [param('courseId').notEmpty()],
     courseController.getDetailCourse,
 )
+
 export default router;

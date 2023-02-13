@@ -11,6 +11,7 @@ export default {
     DELETE_SCRAP_SUCCESS: '코스 스크랩 취소',
     GET_MY_SCRAP_SUCCESS: '내 스크랩 조회 성공',
     GET_DETAIL_COURSE_SUCCESS: '코스 상세 조회 성공',
+    CREATE_DRIVE_SUCCESS: '주행 기록 생성 성공',
   
     // 서버 내 오류
     INTERNAL_SERVER_ERROR: '서버 내 오류',
