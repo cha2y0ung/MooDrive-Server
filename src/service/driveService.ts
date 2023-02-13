@@ -18,6 +18,26 @@ const createDrive = async (userId: number, courseId: number) => {
     }
   };
 
+const getMyDrive = async (userId: number) => {
+  try {
+    const drive = await prisma.drive.findMany({
+      where: {
+        userId: userId
+      },
+      select: {
+        courseId: true,
+        startTime: true,
+        endTime: true
+      }
+    });
+    return drive;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
   export default {
-    createDrive
+    createDrive,
+    getMyDrive,
   }
