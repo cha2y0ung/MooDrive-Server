@@ -4,10 +4,15 @@ import { driveController } from '../controller';
 
 const router: Router = Router();
 
-router.get(
+router.post(
     '/:courseId',
     [param('courseId').notEmpty()],
     driveController.makeDrive,
+)
+router.get(
+    '/:userId',
+    [param('userId').notEmpty()],
+    driveController.getMyDrive,
 )
 
 export default router;

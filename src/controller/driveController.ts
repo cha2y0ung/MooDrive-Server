@@ -19,6 +19,19 @@ const makeDrive = async (req: Request, res: Response, next: NextFunction) => {
     }
   };
 
+const getMyDrive = async (req: Request, res: Response, next: NextFunction) => {
+  const { userId } = req.params;
+  try {
+    const data = await driveService.getMyDrive(+userId);
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, message.GET_MY_DRIVE_SUCCESS, data));
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
     makeDrive,
+    getMyDrive,
 }
