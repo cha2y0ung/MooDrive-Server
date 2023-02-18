@@ -7,3 +7,7 @@ export interface createCourseDTO {
   music: string;
   path: number;
 }
+
+export interface createPhotoDTO {
+  photoUrl: string;
+}
