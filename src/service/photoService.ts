@@ -20,6 +20,21 @@ const uploadPhoto = async (courseId: number, createPhotoDTO: createPhotoDTO) => 
     }
   };
 
+const getPhoto = async (courseId: number) => {
+    try {
+      const photo = await prisma.photo.findFirst({
+        where: {
+            courseId: courseId
+        }
+      });
+      return photo;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
   export default {
     uploadPhoto,
+    getPhoto,
   }
