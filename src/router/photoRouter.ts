@@ -8,8 +8,14 @@ const router: Router = Router();
 router.post(
     '/:courseId',
     [param('courseId').notEmpty()],
-    upload.single(),
+    upload.single('photoUrl'),
     photoController.uploadPhoto,
+)
+
+router.get(
+    '/:courseId',
+    [param('courseId').notEmpty()],
+    photoController.getPhoto,
 )
 
 export default router;
