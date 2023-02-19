@@ -17,9 +17,9 @@ export interface createPhotoDTO {
   photoUrl: string;
 }
 
-export interface createPathDTO {
-  x: number;
-  y: number;
-  lat: number;
-  lng: number;
+export interface searchCourseDTO {
+  startLocation: string;
+  endLocation: string;
+  hashtag: string;
+  totalTime: number;
 }

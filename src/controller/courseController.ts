@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { message, statusCode } from '../modules/constants';
 import { fail, success } from '../modules/constants/util';
-import { createCourseDTO, createPathDTO } from '../interfaces/DTO';
+import { createCourseDTO, searchCourseDTO} from '../interfaces/DTO';
 import { courseService } from '../service';
 import { NetConnectOpts } from 'net';
 import { nextTick } from 'process';
@@ -33,19 +33,6 @@ const makeCourse = async (req: Request, res: Response, next: NextFunction) => {
       next(error);
     }
   };
-
-const makePath = async (req: Request, res: Response, next: NextFunction) => {
-  const { courseId } = req.body;
-  const createPathDto: createPathDTO = req.body;
-  try {
-    const data = await courseService.createPath(+courseId, createPathDto);
-    return res
-      .status(statusCode.CREATED)
-      .send(success(statusCode.CREATED, message.CREATE_COURSE_SUCCESS, data));
-  } catch (error) {
-    next(error);
-  }
-};
 
 const deleteCourse = async (req: Request, res: Response, next: NextFunction) => {
     const { courseId } = req.params;
@@ -121,13 +108,39 @@ const getDetailCourse = async (req: Request, res: Response, next: NextFunction) 
   }
 }
 
+const searchCourse = async (req: Request, res: Response, next: NextFunction) => {
+  const searchCourseDto: searchCourseDTO = req.body;
+  const { totalTime } = req.body;
+  if (totalTime < 20)
+      searchCourseDto.totalTime = 10
+  else if (totalTime < 45)
+      searchCourseDto.totalTime = 30
+  else if (totalTime < 75)
+      searchCourseDto.totalTime = 60
+  else if (totalTime < 105)
+      searchCourseDto.totalTime = 90
+  else if (totalTime < 150)
+      searchCourseDto.totalTime = 120
+  else
+      searchCourseDto.totalTime = 180
+      
+  try {
+    const data = await courseService.searchCourse(searchCourseDto);
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, message.SEARCH_COURSE_SUCCESS, data))
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
     makeCourse,
-    makePath,
     deleteCourse,
     getMyCourse,
     scrapCourse,
     deleteScrap,
     getMyScrap,
     getDetailCourse,
+    searchCourse,
 }
