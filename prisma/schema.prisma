@@ -13,16 +13,21 @@ model User {
 }
 
 model Course {
-  courseId      Int       @id(map: "course_pkey") @default(autoincrement())
+  courseId      Int     @id(map: "course_pkey") @default(autoincrement())
   userId        Int
   discription   String?
-  totalTime     DateTime? @db.Time(6)
   startLocation String
+  startDetail   String
   endLocation   String
+  endDetail     String
   hashtag       String?
-  music         String?
-  path          Int?
   scrap         Int?
+  music         String
+  totalTime     Int
+  color1        String
+  color2        String
+  path          String
+  scraps        Scrap[]
 }
 
 model Drive {
@@ -35,9 +40,10 @@ model Drive {
 }
 
 model Scrap {
-  scrapId  Int @id @default(autoincrement())
+  scrapId  Int    @id @default(autoincrement())
   userId   Int
   courseId Int
+  course   Course @relation(fields: [courseId], references: [courseId])
 }
 
 model Photo {

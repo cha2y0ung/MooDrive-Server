@@ -8,6 +8,10 @@ router.post(
     '/draw',
     courseController.makeCourse,
 )
+router.post(
+    '/drawpath',
+    courseController.makePath,
+)
 router.delete(
     '/draw/:courseId',
     [param('courseId').notEmpty()],

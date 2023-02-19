@@ -1,15 +1,29 @@
 import { Request, Response, NextFunction } from 'express';
 import { message, statusCode } from '../modules/constants';
 import { fail, success } from '../modules/constants/util';
-import { createCourseDTO } from '../interfaces/DTO';
+import { createCourseDTO, createPathDTO } from '../interfaces/DTO';
 import { courseService } from '../service';
 import { NetConnectOpts } from 'net';
 import { nextTick } from 'process';
 import { userInfo } from 'os';
+import { coorConvertPath } from "../modules/convert/coorConvertPath"
 
 const makeCourse = async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.body;
-    const createCourseDto: createCourseDTO = req.body;
+    const createCourseDto: createCourseDTO = {
+      discription: req.body.discription,
+      totalTime: req.body.totalTime,
+      startLocation: req.body.startLocation,
+      startDetail: req.body.startDetail,
+      endLocation: req.body.endLocation,
+      endDetail: req.body.endDetail,
+      hashtag: req.body.hashtag,
+      music: req.body.music,
+      scrap: req.body.scrap,
+      color1: req.body.color1,
+      color2: req.body.color2,
+      path: coorConvertPath(req.body.path)
+    }
     try {
       const data = await courseService.createCourse(+userId, createCourseDto);
       return res
@@ -19,6 +33,19 @@ const makeCourse = async (req: Request, res: Response, next: NextFunction) => {
       next(error);
     }
   };
+
+const makePath = async (req: Request, res: Response, next: NextFunction) => {
+  const { courseId } = req.body;
+  const createPathDto: createPathDTO = req.body;
+  try {
+    const data = await courseService.createPath(+courseId, createPathDto);
+    return res
+      .status(statusCode.CREATED)
+      .send(success(statusCode.CREATED, message.CREATE_COURSE_SUCCESS, data));
+  } catch (error) {
+    next(error);
+  }
+};
 
 const deleteCourse = async (req: Request, res: Response, next: NextFunction) => {
     const { courseId } = req.params;
@@ -96,6 +123,7 @@ const getDetailCourse = async (req: Request, res: Response, next: NextFunction) 
 
 export default {
     makeCourse,
+    makePath,
     deleteCourse,
     getMyCourse,
     scrapCourse,
