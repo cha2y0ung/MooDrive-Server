@@ -16,6 +16,7 @@ export default {
     UPDATE_DRIVE_SUCCESS: '주행 기록 업데이트 성공',
     UPLOAD_PHOTO_SUCCESS: '사진 업로드 성공',
     GET_PHOTO_SUCCESS: '사진 조회 성공',
+    SEARCH_COURSE_SUCCESS: '코스 검색 성공',
   
     // 서버 내 오류
     INTERNAL_SERVER_ERROR: '서버 내 오류',

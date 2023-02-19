@@ -8,10 +8,6 @@ router.post(
     '/draw',
     courseController.makeCourse,
 )
-router.post(
-    '/drawpath',
-    courseController.makePath,
-)
 router.delete(
     '/draw/:courseId',
     [param('courseId').notEmpty()],
@@ -41,6 +37,10 @@ router.get(
     '/detail/:courseId',
     [param('courseId').notEmpty()],
     courseController.getDetailCourse,
+)
+router.get(
+    '/search',
+    courseController.searchCourse,
 )
 
 export default router;

@@ -1,8 +1,10 @@
 import { PrismaClient } from '@prisma/client';
 import { selectFields } from 'express-validator/src/select-fields';
 import { stringify } from 'querystring';
-import { createCourseDTO, createPathDTO } from '../interfaces/DTO';
+import { createCourseDTO, searchCourseDTO } from '../interfaces/DTO';
 import { message } from '../modules/constants';
+import dayjs from 'dayjs';
+
 const prisma = new PrismaClient();
 
 const createCourse = async (userId: number, createCourseDto: createCourseDTO) => {
@@ -66,9 +68,32 @@ const getMyCourse = async (userId: number) => {
         color1: true,
         color2: true,
         path: true,
+        createdAt: true
       }
     })
-    return course;
+    const data = await Promise.all(
+      course.map((data: any) => {
+        const result = {
+          userId: data.userId,
+          courseId: data.courseId,
+          discription: data.discription,
+          totalTime: data.totalTime,
+          startLocation: data.startLocation,
+          startDetail: data.startDetail,
+          endLocation: data.endLocation,
+          endDetail: data.endDetail,
+          hashtag: data.hashtag,
+          music: data.music,
+          scrap: data.scrap,
+          color1: data.color1,
+          color2: data.color2,
+          path: data.path,
+          createdAt: dayjs(data.createdAt).format('YYYY-MM-DD'),
+        };
+        return result;
+      }),
+    )
+    return data;
   } catch (error) {
     console.log(error);
     throw error;
@@ -185,6 +210,25 @@ const getDetailCourse = async (courseId: number) => {
   }
 }
 
+const searchCourse = async (searchCourseDto: searchCourseDTO) => {
+  try{
+    const course = await prisma.course.findMany({
+      where: {
+        startLocation: searchCourseDto.startLocation,
+        totalTime: searchCourseDto.totalTime,
+        hashtag: searchCourseDto.hashtag
+      },
+      orderBy: {
+        scrap: 'asc'
+      }
+    })
+    return course;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 
 export default {
   createCourse,
@@ -194,4 +238,5 @@ export default {
   deleteScrap,
   getMyScrap,
   getDetailCourse,
+  searchCourse,
 };
