@@ -1,5 +1,5 @@
 export interface createCourseDTO {
-  discription: string;
+  description: string;
   totalTime: number;
   startLocation: string;
   startDetail: string;

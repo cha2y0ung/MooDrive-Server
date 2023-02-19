@@ -12,7 +12,7 @@ const createCourse = async (userId: number, createCourseDto: createCourseDTO) =>
     const course = await prisma.course.create({
       data: {
         userId: userId,
-        discription: createCourseDto.discription,
+        description: createCourseDto.description,
         totalTime: createCourseDto.totalTime,
         startLocation: createCourseDto.startLocation,
         startDetail: createCourseDto.startDetail,
@@ -56,7 +56,7 @@ const getMyCourse = async (userId: number) => {
       select: {
         userId: true,
         courseId: true,
-        discription: true,
+        description: true,
         totalTime: true,
         startLocation: true,
         startDetail: true,
@@ -76,7 +76,7 @@ const getMyCourse = async (userId: number) => {
         const result = {
           userId: data.userId,
           courseId: data.courseId,
-          discription: data.discription,
+          description: data.description,
           totalTime: data.totalTime,
           startLocation: data.startLocation,
           startDetail: data.startDetail,

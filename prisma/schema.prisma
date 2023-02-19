@@ -15,7 +15,7 @@ model User {
 model Course {
   courseId      Int      @id(map: "course_pkey") @default(autoincrement())
   userId        Int
-  discription   String?
+  description   String?
   startLocation String
   startDetail   String
   endLocation   String

@@ -11,7 +11,7 @@ import { coorConvertPath } from "../modules/convert/coorConvertPath"
 const makeCourse = async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.body;
     const createCourseDto: createCourseDTO = {
-      discription: req.body.discription,
+      description: req.body.description,
       totalTime: req.body.totalTime,
       startLocation: req.body.startLocation,
       startDetail: req.body.startDetail,
