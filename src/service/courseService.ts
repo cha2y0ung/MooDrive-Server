@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { selectFields } from 'express-validator/src/select-fields';
-import { createCourseDTO} from '../interfaces/DTO';
+import { stringify } from 'querystring';
+import { createCourseDTO, createPathDTO } from '../interfaces/DTO';
 import { message } from '../modules/constants';
 const prisma = new PrismaClient();
 
@@ -12,11 +13,16 @@ const createCourse = async (userId: number, createCourseDto: createCourseDTO) =>
         discription: createCourseDto.discription,
         totalTime: createCourseDto.totalTime,
         startLocation: createCourseDto.startLocation,
+        startDetail: createCourseDto.startDetail,
         endLocation: createCourseDto.endLocation,
+        endDetail: createCourseDto.endDetail,
         hashtag: createCourseDto.hashtag,
         music: createCourseDto.music,
-        path: createCourseDto.path,
-      },
+        scrap: createCourseDto.scrap,
+        color1: createCourseDto.color1,
+        color2: createCourseDto.color2,
+        path: createCourseDto.path
+      }
     });
     return course;
   } catch (error) {
@@ -44,6 +50,22 @@ const getMyCourse = async (userId: number) => {
     const course = await prisma.course.findMany({
       where: {
         userId: userId,
+      },
+      select: {
+        userId: true,
+        courseId: true,
+        discription: true,
+        totalTime: true,
+        startLocation: true,
+        startDetail: true,
+        endLocation: true,
+        endDetail: true,
+        hashtag: true,
+        music: true,
+        scrap: true,
+        color1: true,
+        color2: true,
+        path: true,
       }
     })
     return course;
@@ -69,6 +91,7 @@ const scrapCourse = async (courseId: number, userId: number) => {
       data: {
         courseId: courseId,
         userId: userId,
+        
       }
     })
     const scrapNumber = await prisma.scrap.count({
@@ -138,8 +161,8 @@ const getMyScrap = async (userId: number) => {
         userId: userId,
       },
       select: {
-        courseId: true,
-        }
+        course: true
+      }
     })
     return scraps;
   } catch (error) {
