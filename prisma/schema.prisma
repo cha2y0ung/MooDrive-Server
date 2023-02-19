@@ -15,7 +15,6 @@ model User {
 model Course {
   courseId      Int      @id(map: "course_pkey") @default(autoincrement())
   userId        Int
-  description   String?
   startLocation String
   startDetail   String
   endLocation   String
@@ -28,6 +27,7 @@ model Course {
   color2        String
   path          String
   createdAt     DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
+  description   String?
   scraps        Scrap[]
 }
 
