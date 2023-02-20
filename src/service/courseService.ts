@@ -190,7 +190,28 @@ const getMyScrap = async (userId: number) => {
         course: true
       }
     })
-    return scraps;
+    const data = await Promise.all(
+      scraps.map((data: any) => {
+        const result = {
+          userId: data.userId,
+          courseId: data.courseId,
+          description: data.description,
+          totalTime: data.totalTime,
+          startLocation: data.startLocation,
+          startDetail: data.startDetail,
+          endLocation: data.endLocation,
+          endDetail: data.endDetail,
+          hashtag: data.hashtag,
+          music: data.music,
+          scrap: data.scrap,
+          color1: data.color1,
+          color2: data.color2,
+          path: pathConvertCoor(data.path),
+          createdAt: dayjs(data.createdAt).format('YYYY-MM-DD'),
+        };
+        return result;
+      }),
+    )
   } catch (error) {
     console.log(error);
     throw error;
@@ -223,7 +244,28 @@ const searchCourse = async (searchCourseDto: searchCourseDTO) => {
         scrap: 'asc'
       }
     })
-    return course;
+    const data = await Promise.all(
+      course.map((data: any) => {
+        const result = {
+          userId: data.userId,
+          courseId: data.courseId,
+          description: data.description,
+          totalTime: data.totalTime,
+          startLocation: data.startLocation,
+          startDetail: data.startDetail,
+          endLocation: data.endLocation,
+          endDetail: data.endDetail,
+          hashtag: data.hashtag,
+          music: data.music,
+          scrap: data.scrap,
+          color1: data.color1,
+          color2: data.color2,
+          path: pathConvertCoor(data.path),
+          createdAt: dayjs(data.createdAt).format('YYYY-MM-DD'),
+        };
+        return result;
+      }),
+    )
   } catch (error) {
     console.log(error);
     throw error;
