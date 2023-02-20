@@ -24,7 +24,7 @@ const createCourse = async (userId: number, createCourseDto: createCourseDTO) =>
         scrap: createCourseDto.scrap,
         color1: createCourseDto.color1,
         color2: createCourseDto.color2,
-        path: createCourseDto.path
+        path: pathConvertCoor(createCourseDto.path)
       }
     });
     return course;
@@ -193,25 +193,26 @@ const getMyScrap = async (userId: number) => {
     const data = await Promise.all(
       scraps.map((data: any) => {
         const result = {
-          userId: data.userId,
-          courseId: data.courseId,
-          description: data.description,
-          totalTime: data.totalTime,
-          startLocation: data.startLocation,
-          startDetail: data.startDetail,
-          endLocation: data.endLocation,
-          endDetail: data.endDetail,
-          hashtag: data.hashtag,
-          music: data.music,
-          scrap: data.scrap,
-          color1: data.color1,
-          color2: data.color2,
-          path: pathConvertCoor(data.path),
-          createdAt: dayjs(data.createdAt).format('YYYY-MM-DD'),
+          userId: data.course.userId,
+          courseId: data.course.courseId,
+          description: data.course.description,
+          totalTime: data.course.totalTime,
+          startLocation: data.course.startLocation,
+          startDetail: data.course.startDetail,
+          endLocation: data.course.endLocation,
+          endDetail: data.course.endDetail,
+          hashtag: data.course.hashtag,
+          music: data.course.music,
+          scrap: data.course.scrap,
+          color1: data.course.color1,
+          color2: data.course.color2,
+          path: pathConvertCoor(data.course.path),
+          createdAt: dayjs(data.course.createdAt).format('YYYY-MM-DD'),
         };
         return result;
       }),
     )
+    return data;
   } catch (error) {
     console.log(error);
     throw error;
@@ -241,7 +242,7 @@ const searchCourse = async (searchCourseDto: searchCourseDTO) => {
         hashtag: searchCourseDto.hashtag
       },
       orderBy: {
-        scrap: 'asc'
+        scrap: 'desc'
       }
     })
     const data = await Promise.all(
@@ -266,6 +267,7 @@ const searchCourse = async (searchCourseDto: searchCourseDTO) => {
         return result;
       }),
     )
+    return data
   } catch (error) {
     console.log(error);
     throw error;
