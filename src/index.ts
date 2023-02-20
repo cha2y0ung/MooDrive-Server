@@ -1,9 +1,16 @@
 // src/index.ts
 import express, { NextFunction, Request, Response } from "express";
 import router from './router';
+import cors from 'cors';
+import config from './config'
 
 const app = express(); // express 객체 받아옴
-const cors = require("cors")
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://hyundai-hackathon-9.vercel.app',
+  config.ec2URL,
+]
 
 const PORT = 3000; // 사용할 port를 3000번으로 설정
 
@@ -11,7 +18,7 @@ app.use(express.json()); // express 에서 request body를 json 으로 받아오
 app.use(cors({
   origin: '*',
 }));
-app.use("/api", router); // use -> 모든 요청
+app.use("", router); // use -> 모든 요청
 // localhost:8000/api -> api 폴더
 // localhost:8000/api/user -> user.ts
 
