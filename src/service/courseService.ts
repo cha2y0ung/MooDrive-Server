@@ -24,7 +24,7 @@ const createCourse = async (userId: number, createCourseDto: createCourseDTO) =>
         scrap: createCourseDto.scrap,
         color1: createCourseDto.color1,
         color2: createCourseDto.color2,
-        path: pathConvertCoor(createCourseDto.path)
+        path: createCourseDto.path
       }
     });
     return course;
@@ -53,23 +53,6 @@ const getMyCourse = async (userId: number) => {
     const course = await prisma.course.findMany({
       where: {
         userId: userId,
-      },
-      select: {
-        userId: true,
-        courseId: true,
-        description: true,
-        totalTime: true,
-        startLocation: true,
-        startDetail: true,
-        endLocation: true,
-        endDetail: true,
-        hashtag: true,
-        music: true,
-        scrap: true,
-        color1: true,
-        color2: true,
-        path: true,
-        createdAt: true
       }
     })
     const data = await Promise.all(
@@ -221,12 +204,34 @@ const getMyScrap = async (userId: number) => {
 
 const getDetailCourse = async (courseId: number) => {
   try{
-    const course = await prisma.course.findFirst({
+    const course = await prisma.course.findMany({
       where: {
         courseId: courseId,
       }
     })
-    return course;
+    const data = await Promise.all(
+      course.map((data: any) => {
+        const result = {
+          userId: data.userId,
+          courseId: data.courseId,
+          description: data.description,
+          totalTime: data.totalTime,
+          startLocation: data.startLocation,
+          startDetail: data.startDetail,
+          endLocation: data.endLocation,
+          endDetail: data.endDetail,
+          hashtag: data.hashtag,
+          music: data.music,
+          scrap: data.scrap,
+          color1: data.color1,
+          color2: data.color2,
+          path: pathConvertCoor(data.path),
+          createdAt: dayjs(data.createdAt).format('YYYY-MM-DD'),
+        };
+        return result;
+      }),
+    )
+    return data;
   } catch (error) {
     console.log(error);
     throw error;
