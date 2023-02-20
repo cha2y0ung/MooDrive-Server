@@ -4,6 +4,7 @@ import { stringify } from 'querystring';
 import { createCourseDTO, searchCourseDTO } from '../interfaces/DTO';
 import { message } from '../modules/constants';
 import dayjs from 'dayjs';
+import { pathConvertCoor } from "../modules/convert/pathConvertCoor";
 
 const prisma = new PrismaClient();
 
@@ -87,7 +88,7 @@ const getMyCourse = async (userId: number) => {
           scrap: data.scrap,
           color1: data.color1,
           color2: data.color2,
-          path: data.path,
+          path: pathConvertCoor(data.path),
           createdAt: dayjs(data.createdAt).format('YYYY-MM-DD'),
         };
         return result;
