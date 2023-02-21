@@ -10,7 +10,7 @@ datasource db {
 
 model User {
   username String
-  id       Int    @id @default(autoincrement())
+  id       Int    @id(map: "user_pkey") @default(autoincrement())
 }
 
 model Course {
