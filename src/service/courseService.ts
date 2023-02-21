@@ -39,7 +39,7 @@ const deleteCourse = async (courseId: number) => {
   try{
     const course = await prisma.course.delete({
       where: {
-        courseId: courseId,
+        id: courseId,
       }
     })
     return course;
@@ -111,7 +111,7 @@ const scrapCourse = async (courseId: number, userId: number) => {
     })
     const scrapUpdate = await prisma.course.update({
       where: {
-        courseId: courseId
+        id: courseId
       },
       data: {
         scrap: scrapNumber
@@ -147,7 +147,7 @@ const deleteScrap = async (courseId: number, userId: number) => {
     })
     const scrapUpdate = await prisma.course.update({
       where: {
-        courseId: courseId
+        id: courseId
       },
       data: {
         scrap: scrapNumber
@@ -171,27 +171,27 @@ const getMyScrap = async (userId: number) => {
         userId: userId,
       },
       select: {
-        course: true
+        Course: true
       }
     })
     const data = await Promise.all(
       scraps.map((data: any) => {
         const result = {
-          userId: data.course.userId,
-          courseId: data.course.courseId,
-          description: data.course.description,
-          totalTime: data.course.totalTime,
-          startLocation: data.course.startLocation,
-          startDetail: data.course.startDetail,
-          endLocation: data.course.endLocation,
-          endDetail: data.course.endDetail,
-          hashtag: data.course.hashtag,
-          music: data.course.music,
-          scrap: data.course.scrap,
-          color1: data.course.color1,
-          color2: data.course.color2,
-          path: pathConvertCoor(data.course.path),
-          createdAt: dayjs(data.course.createdAt).format('YYYY-MM-DD'),
+          userId: data.Course.userId,
+          courseId: data.Course.courseId,
+          description: data.Course.description,
+          totalTime: data.Course.totalTime,
+          startLocation: data.Course.startLocation,
+          startDetail: data.Course.startDetail,
+          endLocation: data.Course.endLocation,
+          endDetail: data.Course.endDetail,
+          hashtag: data.Course.hashtag,
+          music: data.Course.music,
+          scrap: data.Course.scrap,
+          color1: data.Course.color1,
+          color2: data.Course.color2,
+          path: pathConvertCoor(data.Course.path),
+          createdAt: dayjs(data.Course.createdAt).format('YYYY-MM-DD'),
         };
         return result;
       }),
@@ -207,7 +207,7 @@ const getDetailCourse = async (courseId: number) => {
   try{
     const course = await prisma.course.findMany({
       where: {
-        courseId: courseId,
+        id: courseId,
       }
     })
     const data = await Promise.all(
