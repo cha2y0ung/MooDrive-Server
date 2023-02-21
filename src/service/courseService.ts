@@ -60,7 +60,7 @@ const getMyCourse = async (userId: number) => {
       course.map((data: any) => {
         const result = {
           userId: data.userId,
-          courseId: data.courseId,
+          courseId: data.id,
           description: data.description,
           totalTime: data.totalTime,
           startLocation: data.startLocation,
@@ -178,7 +178,7 @@ const getMyScrap = async (userId: number) => {
       scraps.map((data: any) => {
         const result = {
           userId: data.Course.userId,
-          courseId: data.Course.courseId,
+          courseId: data.Course.id,
           description: data.Course.description,
           totalTime: data.Course.totalTime,
           startLocation: data.Course.startLocation,
@@ -214,7 +214,7 @@ const getDetailCourse = async (courseId: number) => {
       course.map((data: any) => {
         const result = {
           userId: data.userId,
-          courseId: data.courseId,
+          courseId: data.id,
           description: data.description,
           totalTime: data.totalTime,
           startLocation: data.startLocation,
@@ -261,7 +261,7 @@ const searchCourse = async (searchCourseDto: searchCourseDTO) => {
       course.map((data: any) => {
         const result = {
           userId: data.userId,
-          courseId: data.courseId,
+          courseId: data.id,
           description: data.description,
           totalTime: data.totalTime,
           startLocation: data.startLocation,
