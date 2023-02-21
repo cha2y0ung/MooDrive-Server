@@ -10,7 +10,7 @@ const makeDrive = async (req: Request, res: Response, next: NextFunction) => {
     const { courseId } = req.params;
     const { userId } = req.body;
     try {
-      const data = await driveService.createDrive(+courseId, +userId);
+      const data = await driveService.createDrive(+userId, +courseId);
       return res
         .status(statusCode.CREATED)
         .send(success(statusCode.CREATED, message.CREATE_DRIVE_SUCCESS, data));

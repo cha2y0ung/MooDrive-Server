@@ -10,8 +10,8 @@ const createDrive = async (userId: number, courseId: number) => {
     try {
       const course = await prisma.drive.create({
         data: {
-          courseId: courseId,
-          userId: userId
+          userId: userId,
+          courseId: courseId
         }
       });
       return course;
@@ -28,13 +28,13 @@ const getMyDrive = async (userId: number) => {
         userId: userId
       },
       select: {
+        Course: true,
         userId: true,
         courseId: true,
         date: true,
         startTime: true,
-        endTime: true,
-        Course: true
-      },
+        endTime: true
+      }
     });
     const data = await Promise.all(
       drive.map((data: any) => {
