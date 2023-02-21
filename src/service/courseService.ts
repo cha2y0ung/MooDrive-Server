@@ -170,7 +170,7 @@ const getMyScrap = async (userId: number) => {
       where: {
         userId: userId,
       },
-      select: {
+      include: {
         Course: true
       }
     })
