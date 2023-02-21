@@ -28,6 +28,7 @@ model Course {
   path          String
   createdAt     DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
   description   String?
+  drives        Drive[]
   scraps        Scrap[]
 }
 
@@ -38,6 +39,7 @@ model Drive {
   startTime DateTime @default(dbgenerated("CURRENT_TIME")) @db.Time(6)
   endTime   DateTime @updatedAt @db.Time(6)
   date      DateTime @updatedAt @db.Date
+  course    Course   @relation(fields: [courseId], references: [courseId])
 }
 
 model Scrap {
