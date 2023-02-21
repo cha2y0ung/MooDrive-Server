@@ -25,17 +25,12 @@ const getMyDrive = async (userId: number) => {
   try {
     const drive = await prisma.drive.findMany({
       where: {
-        userId: userId
+        userId: userId,
       },
-      select: {
-        Course: true,
-        userId: true,
-        courseId: true,
-        date: true,
-        startTime: true,
-        endTime: true
+      include: {
+        Course: true
       }
-    });
+    })
     const data = await Promise.all(
       drive.map((data: any) => {
         const result = {
@@ -78,7 +73,7 @@ const updateDrive = async (driveId: number) => {
       }
     });
     const data = {
-      drive: drive.id,
+      driveId: drive.id,
       courseId: drive.courseId,
       date: dayjs(drive.date).format('YYYY-MM-DD'),
       startTime: dayjs(drive.startTime).format('HH:mm:ss'),
