@@ -3,17 +3,17 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model User {
-  userId   Int    @id @default(autoincrement())
   username String
+  id       Int    @id @default(autoincrement())
 }
 
 model Course {
-  courseId      Int      @id(map: "course_pkey") @default(autoincrement())
   userId        Int
   startLocation String
   startDetail   String
@@ -28,29 +28,30 @@ model Course {
   path          String
   createdAt     DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
   description   String?
+  id            Int      @id(map: "course_pkey") @default(autoincrement())
   drives        Drive[]
   scraps        Scrap[]
 }
 
 model Drive {
-  driveId   Int      @id @default(autoincrement())
-  courseId  Int
+  courseId  Int?
   userId    Int
   startTime DateTime @default(dbgenerated("CURRENT_TIME")) @db.Time(6)
   endTime   DateTime @updatedAt @db.Time(6)
   date      DateTime @updatedAt @db.Date
-  course    Course   @relation(fields: [courseId], references: [courseId])
+  id        Int      @id(map: "drive_pkey") @default(autoincrement())
+  Course    Course?  @relation(fields: [courseId], references: [id])
 }
 
 model Scrap {
-  scrapId  Int    @id @default(autoincrement())
   userId   Int
-  courseId Int
-  course   Course @relation(fields: [courseId], references: [courseId])
+  courseId Int?
+  id       Int     @id(map: "scrap_pkey") @default(autoincrement())
+  Course   Course? @relation(fields: [courseId], references: [id])
 }
 
 model Photo {
-  photoId  Int    @id @default(autoincrement())
   courseId Int    @unique
   photoUrl String
+  id       Int    @id @default(autoincrement())
 }

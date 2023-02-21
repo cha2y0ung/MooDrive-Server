@@ -10,8 +10,8 @@ const createDrive = async (userId: number, courseId: number) => {
     try {
       const course = await prisma.drive.create({
         data: {
-            courseId: courseId,
-            userId: userId,
+          courseId: courseId,
+          userId: userId
         }
       });
       return course;
@@ -33,7 +33,7 @@ const getMyDrive = async (userId: number) => {
         date: true,
         startTime: true,
         endTime: true,
-        course: true
+        Course: true
       },
     });
     const data = await Promise.all(
@@ -44,18 +44,18 @@ const getMyDrive = async (userId: number) => {
           date: dayjs(data.date).format('YYYY-MM-DD'),
           startTime: dayjs(data.startTime).format('HH:mm:ss'),
           endTime: dayjs(data.endTime).format('HH:mm:ss'),
-          description: data.course.description,
-          totalTime: data.course.totalTime,
-          startLocation: data.course.startLocation,
-          startDetail: data.course.startDetail,
-          endLocation: data.course.endLocation,
-          endDetail: data.course.endDetail,
-          hashtag: data.course.hashtag,
-          music: data.course.music,
-          scrap: data.course.scrap,
-          color1: data.course.color1,
-          color2: data.course.color2,
-          path: pathConvertCoor(data.course.path),
+          description: data.Course.description,
+          totalTime: data.Course.totalTime,
+          startLocation: data.Course.startLocation,
+          startDetail: data.Course.startDetail,
+          endLocation: data.Course.endLocation,
+          endDetail: data.Course.endDetail,
+          hashtag: data.Course.hashtag,
+          music: data.Course.music,
+          scrap: data.Course.scrap,
+          color1: data.Course.color1,
+          color2: data.Course.color2,
+          path: pathConvertCoor(data.Course.path),
         };
         return result;
       }),
@@ -71,14 +71,14 @@ const updateDrive = async (driveId: number) => {
   try {
     const drive = await prisma.drive.update({
       where: {
-        driveId: driveId
+        id: driveId
       },
       data: {
-        driveId: driveId
+        id: driveId
       }
     });
     const data = {
-      drive: drive.driveId,
+      drive: drive.id,
       courseId: drive.courseId,
       date: dayjs(drive.date).format('YYYY-MM-DD'),
       startTime: dayjs(drive.startTime).format('HH:mm:ss'),
