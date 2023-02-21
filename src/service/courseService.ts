@@ -2,8 +2,9 @@ import { PrismaClient } from '@prisma/client';
 import { selectFields } from 'express-validator/src/select-fields';
 import { stringify } from 'querystring';
 import { createCourseDTO, searchCourseDTO } from '../interfaces/DTO';
-import { message } from '../modules/constants';
+import { message, statusCode } from '../modules/constants';
 import dayjs from 'dayjs';
+import errorGenerator from '../middleware/errorGenerator'
 import { pathConvertCoor } from "../modules/convert/pathConvertCoor";
 
 const prisma = new PrismaClient();
@@ -250,6 +251,12 @@ const searchCourse = async (searchCourseDto: searchCourseDTO) => {
         scrap: 'desc'
       }
     })
+    if (!course) {
+      throw errorGenerator({
+        msg: message.NOT_FOUND,
+        statusCode: statusCode.NOT_FOUND,
+      })
+    }
     const data = await Promise.all(
       course.map((data: any) => {
         const result = {
