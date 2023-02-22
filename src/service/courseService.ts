@@ -166,19 +166,20 @@ const deleteScrap = async (courseId: number, userId: number) => {
 
 const getMyScrap = async (userId: number) => {
   try{
-    const scraps = await prisma.scrap.findMany({
+    const scrap = await prisma.scrap.findMany({
       where: {
-        userId: userId,
+        userId: userId
       },
       include: {
-        Course: true
+        Course: true,
       }
     })
     const data = await Promise.all(
-      scraps.map((data: any) => {
+      scrap.map((data: any) => {
         const result = {
-          userId: data.Course.userId,
-          courseId: data.Course.id,
+          scrapId: data.id,
+          userId: data.userId,
+          courseId: data.Course.courseId,
           description: data.Course.description,
           totalTime: data.Course.totalTime,
           startLocation: data.Course.startLocation,
