@@ -109,23 +109,10 @@ const getDetailCourse = async (req: Request, res: Response, next: NextFunction) 
 }
 
 const searchCourse = async (req: Request, res: Response, next: NextFunction) => {
-  const searchCourseDto: searchCourseDTO = req.body;
-  const { totalTime } = req.body;
-  if (totalTime < 20)
-      searchCourseDto.totalTime = 10
-  else if (totalTime < 45)
-      searchCourseDto.totalTime = 30
-  else if (totalTime < 75)
-      searchCourseDto.totalTime = 60
-  else if (totalTime < 105)
-      searchCourseDto.totalTime = 90
-  else if (totalTime < 150)
-      searchCourseDto.totalTime = 120
-  else
-      searchCourseDto.totalTime = 180
-      
+  const { totalTime } = req.params;
+  const { startLocation } = req.params;
   try {
-    const data = await courseService.searchCourse(searchCourseDto);
+    const data = await courseService.searchCourse(+totalTime, startLocation);
     return res
       .status(statusCode.OK)
       .send(success(statusCode.OK, message.SEARCH_COURSE_SUCCESS, data))

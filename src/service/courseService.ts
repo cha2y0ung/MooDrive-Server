@@ -239,13 +239,12 @@ const getDetailCourse = async (courseId: number) => {
   }
 }
 
-const searchCourse = async (searchCourseDto: searchCourseDTO) => {
+const searchCourse = async ( totalTime: number, startLocation: string) => {
   try{
     const course = await prisma.course.findMany({
       where: {
-        startLocation: searchCourseDto.startLocation,
-        totalTime: searchCourseDto.totalTime,
-        hashtag: searchCourseDto.hashtag
+        startLocation: startLocation,
+        totalTime: totalTime
       },
       orderBy: {
         scrap: 'desc'

@@ -39,7 +39,8 @@ router.get(
     courseController.getDetailCourse,
 )
 router.get(
-    '/search',
+    '/search/:totalTime/:startLocation',
+    [param('courseId').notEmpty()],
     courseController.searchCourse,
 )
 
