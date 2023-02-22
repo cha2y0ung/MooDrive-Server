@@ -179,7 +179,7 @@ const getMyScrap = async (userId: number) => {
         const result = {
           scrapId: data.id,
           userId: data.userId,
-          courseId: data.Course.courseId,
+          courseId: data.courseId,
           description: data.Course.description,
           totalTime: data.Course.totalTime,
           startLocation: data.Course.startLocation,
