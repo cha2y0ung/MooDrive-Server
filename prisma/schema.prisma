@@ -29,8 +29,8 @@ model Course {
   createdAt     DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
   description   String?
   id            Int      @id(map: "course_pkey") @default(autoincrement())
-  drives        Drive[]
   scraps        Scrap[]
+  drives        Drive[]
 }
 
 model Drive {
