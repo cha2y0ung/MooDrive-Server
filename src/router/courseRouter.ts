@@ -44,4 +44,9 @@ router.get(
     courseController.searchCourse,
 )
 
+router.get(
+    "/naver/:coords",
+    courseController.getNaverData,
+)
+
 export default router;

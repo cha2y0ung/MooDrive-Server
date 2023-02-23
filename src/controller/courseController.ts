@@ -7,6 +7,8 @@ import { NetConnectOpts } from 'net';
 import { nextTick } from 'process';
 import { userInfo } from 'os';
 import { coorConvertPath } from "../modules/convert/coorConvertPath"
+import axios from 'axios';
+import { getAxiosFromNaverApi } from '../modules/axios'
 
 const makeCourse = async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.body;
@@ -121,6 +123,20 @@ const searchCourse = async (req: Request, res: Response, next: NextFunction) => 
   }
 }
 
+const getNaverData = async (req: Request, res: Response, next: NextFunction) => {
+  const { coords } = req.params;
+  const url = `https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?coords=${coords}&orders=roadaddr&output=json`
+  try {
+    const data = await getAxiosFromNaverApi(url);
+
+    return res
+      .status(statusCode.OK)
+      .send(success(statusCode.OK, message.GET_NAVER_DATA_SUCCESS, data))
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
     makeCourse,
     deleteCourse,
@@ -130,4 +146,5 @@ export default {
     getMyScrap,
     getDetailCourse,
     searchCourse,
+    getNaverData
 }

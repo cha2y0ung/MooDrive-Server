@@ -1,8 +1,9 @@
 // src/index.ts
-import express, { NextFunction, Request, Response } from "express";
+import express, { NextFunction, Request, response, Response } from "express";
 import router from './router';
 import cors from 'cors';
-import config from './config'
+import config from './config';
+import { ParsedQs } from "qs";
 
 const app = express(); // express 객체 받아옴
 
